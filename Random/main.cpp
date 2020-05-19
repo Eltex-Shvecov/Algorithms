@@ -2,11 +2,14 @@
 
 using namespace std;
 
-void get_rand_number(int x_0, int a, int b, int m, int count);
+int get_rand_number();
+int get_range_random(int min, int max);
+
+int a, b, m, x_0;
 
 int main(int argc, char **argv)
 {
-	int a, b, m, x_0, count;
+	int count, rand;
 
 	cout << "A = ";
 	cin >> a;
@@ -18,18 +21,28 @@ int main(int argc, char **argv)
 	cin >> count;
 	cout << "X0 = ";
 	cin >> x_0;
+	cout << endl;
 
-	get_rand_number(x_0, a, b, m, count);
+	for (int i = 0; i < count; i++)
+	{
+		rand = get_rand_number();
+		cout << rand << endl;
+	}
 
+	cout << "\nmin = 20\nmax = 45\nrand = " << get_range_random(20, 45) << endl;
 	return 0;
 }
 
-void get_rand_number(int x_0, int a, int b, int m, int count)
+int get_rand_number()
 {
-	cout << endl;
-	for (int i = 0; i < count; i++)
-	{
-		x_0 = (a * x_0 + b) % m;
-		cout << x_0 << endl;
-	}
+	static int rand_num = x_0;
+	rand_num = (a * rand_num + b) % m;
+	return rand_num;
+}
+
+int get_range_random(int min, int max)
+{
+	int rand_num;
+	rand_num = min + (double(get_rand_number()) / m) * (max - min);
+	return rand_num;
 }
